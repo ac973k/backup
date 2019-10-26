@@ -1,10 +1,11 @@
 #include <fstream>
 #include <cstring>
+#include <sstream>
 #include <iostream>
 
 #include "backup.h"
 
-Backup::Backup(char* fileBlock)
+Backup::Backup(std::string fileBlock)
 {
     fBlock = fileBlock;
 }
@@ -20,23 +21,15 @@ void Backup::getBackup()
     {
         std::cout << "\nOpen...";
 
-        std::ifstream block;
-        std::ofstream bkp;
-
         command = "/dev/block/mmcblk0boot0";
         source = "/sdcard/MotoBackup/loader.bin";
 
-        block.open(command.c_str());
-        bkp.open(source.c_str());
+        std::ifstream block(command, std::ifstream::binary);
+        std::ofstream bkp(source, std::ofstream::binary);
 
         std::cout << "\nWrite...";
-
-        char tmpFile;
-
-        while(block.get(tmpFile))
-        {
-            bkp << tmpFile;
-        }
+        
+        bkp << block.rdbuf();
 
         block.close();
         bkp.close();
@@ -84,23 +77,15 @@ void Backup::getBackup()
     {
             std::cout << "\nOpen...";
 
-            std::ifstream block;
-            std::ofstream bkp;
-
             command = "/dev/block/platform/mtk-msdc.0/by-name/" + fBlock;
             source = "/sdcard/MotoBackup/" + fBlock + ".img";
-
-            block.open(command.c_str());
-            bkp.open(source.c_str());
+            
+            std::ifstream block(command, std::ifstream::binary);
+            std::ofstream bkp(source, std::ofstream::binary);
 
             std::cout << "\nWrite...";
 
-            char tmpFile;
-
-            while(block.get(tmpFile))
-            {
-                bkp << tmpFile;
-            }
+            bkp << block.rdbuf();
 
             block.close();
             bkp.close();
