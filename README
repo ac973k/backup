@@ -1,1 +1,1 @@
-TODO: WRITE README
+Console utilite for backup /dev/block/boot{recovery, nvram, etc...}
