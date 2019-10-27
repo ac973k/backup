@@ -77,7 +77,7 @@ void Backup::getBackup()
     {
             std::cout << "\nOpen...";
 
-            command = "/dev/block/platform/mtk-msdc.0/by-name/" + fBlock;
+            command = "/dev/block/platform/mtk-msdc.0/11230000.msdc0/by-name/" + fBlock;
             source = "/sdcard/MotoBackup/" + fBlock + ".img";
             
             std::ifstream block(command, std::ifstream::binary);
