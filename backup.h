@@ -12,7 +12,7 @@ private:
     std::string source;
 
 public:
-    Backup(char* fileBlock);
+    Backup(std::string fileBlock);
 
     ~Backup();
 
